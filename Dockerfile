@@ -5,29 +5,36 @@ LABEL org.opencontainers.image.authors="Maksymilian Słowiński mslowinski96@gma
 
 ARG PORT=25565
 
-ARG SERVER_PATH=/mc-server
-ARG SCRIPTS_FOLDER=Scripts/
+ARG SCRIPTS_FOLDER=./Scripts
 
 ARG USER=minecraft
 ARG GROUP=minecraft
 
+#Do not overwrite this, when editing remember to edit entrypoint too
+ENV SCRIPTS_PATH=/opt/mc-server-scripts
+#Do not overwrite this
+ENV SERVER_PATH=/mc-server
+
+
+ENV START_SCRIPT=start.sh
 ENV SERVER_PACK_URL=""
 ENV EULA=""
-ENV START_SCRIPT=start.sh
+ENV JVM_XMX=8G
+ENV JVM_XMS=4G
+
 
 RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
 
-
-
-RUN groupadd -r ${GROUP} && \
-    useradd -r -m -g ${GROUP} -d ${SERVER_PATH} -s /bin/false ${USER}
+RUN groupadd -r -g 999 ${GROUP} && \
+    useradd -r -m -u 999 -g ${GROUP} -d ${SERVER_PATH} -s /bin/false ${USER}
 
 WORKDIR ${SERVER_PATH}
 
-COPY --chown=${USER}:${GROUP} --chmod=u+x ${SCRIPTS_FOLDER}* ${SERVER_PATH}/
+COPY --chown=${USER}:${GROUP} --chmod=u+x ${SCRIPTS_FOLDER}/* ${SCRIPTS_PATH}/
 
 
 USER ${USER}
 EXPOSE ${PORT}
 
-ENTRYPOINT [ "./ContainerStart.sh" ]
+#Make sure to keep it the same path as script path
+ENTRYPOINT ["/opt/mc-server-scripts/ContainerStart.sh"]

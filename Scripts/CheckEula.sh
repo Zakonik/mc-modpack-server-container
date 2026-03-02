@@ -2,13 +2,13 @@
 
 set -euo pipefail
 
-eula_path=eula.txt
+EULA_PATH=$SERVER_PATH/eula.txt
 
-if [ -e "$eula_path" ] && grep -qi true "$eula_path" 2>/dev/null; then
+if [ -e "$EULA_PATH" ] && grep -qi true "$EULA_PATH" 2>/dev/null; then
 	echo "EULA already accepted!"
 elif echo "$EULA" | grep -qi true; then
-	echo "# EULA accepted on $(date)" >"$eula_path"
-	echo "eula=$EULA" >>"$eula_path"
+	echo "# EULA accepted on $(date)" >"$EULA_PATH"
+	echo "eula=$EULA" >>"$EULA_PATH"
 else
 	echo ""
 	echo "Please accept the Minecraft EULA hosted at"
