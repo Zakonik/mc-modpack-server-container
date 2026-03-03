@@ -3,7 +3,8 @@ FROM ${BASE_IMAGE}
 LABEL org.opencontainers.image.authors="Maksymilian Słowiński mslowinski96@gmail.com"
 
 
-ARG PORT=25565
+ARG SERVER_PORT=25565
+ARG RCON_PORT=25575
 
 ARG SCRIPTS_FOLDER=./Scripts
 
@@ -35,6 +36,7 @@ COPY --chown=${USER}:${GROUP} --chmod=u+x ${SCRIPTS_FOLDER}/* ${SCRIPTS_PATH}/
 
 USER ${USER}
 EXPOSE ${PORT}
+EXPOSE ${RCON_PORT}
 
 #Make sure to keep it the same path as script path
 ENTRYPOINT ["/opt/mc-server-scripts/ContainerStart.sh"]

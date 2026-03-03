@@ -1,0 +1,8 @@
+services:
+    server:
+        image: mc-server-moded:latest
+        ports:
+            - "25565:25565"
+            - "25575:25575"
+        volumes:
+            - "${HOST_SERVER_PATH}:/mc-server"
