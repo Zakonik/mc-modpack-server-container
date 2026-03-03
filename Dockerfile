@@ -35,7 +35,7 @@ COPY --chown=${USER}:${GROUP} --chmod=u+x ${SCRIPTS_FOLDER}/* ${SCRIPTS_PATH}/
 
 
 USER ${USER}
-EXPOSE ${PORT}
+EXPOSE ${SERVER_PORT}
 EXPOSE ${RCON_PORT}
 
 #Make sure to keep it the same path as script path

@@ -1,8 +1,12 @@
 services:
     server:
-        image: mc-server-moded:latest
+        env_file:
+            - .env
+        image: mc-server-modded
+        build:
+            context: .
         ports:
             - "25565:25565"
-            - "25575:25575"
+            - "127.0.0.1:25575:25575"
         volumes:
             - "${HOST_SERVER_PATH}:/mc-server"
