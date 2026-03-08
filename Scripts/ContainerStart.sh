@@ -20,12 +20,17 @@ if [ -n "$SERVER_PACK_URL" ] && [ ! -f "$INSTALL_MARKER" ]; then
 
     echo "$SERVER_PACK_URL" >"$INSTALL_MARKER"
 
-    echo "Server unpacked. Changing variables.txt if exist"
+    echo "✔ Server unpacked."
+
+    echo "Changing variables.txt if exist"
     "$SCRIPTS_PATH/ChangeVariables.sh"
+
+    echo "Generating server.properties"
+    "$SCRIPTS_PATH/GenerateServerProperties.sh"
 
 elif [ -z "$SERVER_PACK_URL" ] && [ ! -f "$INSTALL_MARKER" ]; then
 
-    echo "Server not installed already. Please provide server pack URL"
+    echo "ERROR: Server not installed already. Please provide server pack URL"
     exit 1
 
 fi

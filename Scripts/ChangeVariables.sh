@@ -37,5 +37,7 @@ if [ -e "$VARIABLE_PATH" ]; then
 
     sed -i "/^JAVA_ARGS=/ s|\"$| ${JVM_EXTRA_FLAGS}\"|" "$VARIABLE_PATH"
 
-    echo "Variables changed"
+    echo "✔ Variables changed"
+else
+  echo "✔ Variables not found"
 fi
